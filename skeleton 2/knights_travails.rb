@@ -30,4 +30,9 @@ class KnightsPathFinder
         new_moves
     end
 
+    def build_move_tree(pos)
+        @root_node.parent(pos)
+        @root_node.children = KnightsPathFinder.valid_moves(pos)
+    end
+
 end
