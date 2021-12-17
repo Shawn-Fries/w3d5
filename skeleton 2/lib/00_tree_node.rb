@@ -27,24 +27,30 @@ class PolyTreeNode
 require "byebug"
     #####Searchable#####
     def dfs(target_value)
-        return self if self.value == target_value
-        debugger
-        @children.each do |child|
-            return child if child.value == target_value
-            child.dfs(target_value) if child.children.length > 0
+        # return self if self.value == target_value
+        # debugger
+        # @children.each do |child|
+        #     return child if child.value == target_value
+        #     child.dfs(target_value) if child.children.length > 0
+        # end
+        length = self.index.length
+        (0...length).each do |i|
+            return i if self[i] == target_value
+        end
+        nil
+    end
+
+    def index
+
+        parent_index = 0
+        self.each_with_index do |child, index|
+        if index.zero?
+        child.parent = self[parent_index]
+        parent_index += 1 if index.even?
         end
     end
+  end
 end
-
-
-
-
-
-
-
-
-
-
 
 n1 = PolyTreeNode.new("root1")
 n2 = PolyTreeNode.new("root2")
