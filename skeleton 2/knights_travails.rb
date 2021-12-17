@@ -7,20 +7,27 @@ class KnightsPathFinder
     def initialize(pos)
         @pos = pos
         @root_node = PolyTreeNode.new(pos)
-        @considered_positions = []
+        @considered_positions = [pos]
         self.build_move_tree
     end
 
     def self.valid_moves(pos)
-        row, col = pos
-        if (col > 8 and 0 > col) and (row > 8 and 0 > row)
-            return false
-        end
-        true
+        possible_move = []
+        possible_move << [pos.first - 2, pos.last - 1] 
+        possible_move << [pos.first - 2, pos.last + 1]
+        possible_move << [pos.first - 1, pos.last - 2]
+        possible_move << [pos.first - 1, pos.last + 2]  
+        possible_move << [pos.first + 2, pos.last - 1] 
+        possible_move << [pos.first + 2, pos.last + 1] 
+        possible_move << [pos.first + 1, pos.last - 2]
+        possible_move << [pos.first + 1, pos.last + 2]  
+        possible_move.select { |move| move.first >= 0 && move.first < 8 && move.last >= 0 && move.last <8}
     end
 
     def new_move_positions(pos)
-        if KnightsPathFinder.valid_moves == false
+        new_moves = KnightsPathFinder.valid_moves(pos).select{|move|!@considered_positions.include?(move)}
+        @considered_positions += new_moves
+        new_moves
     end
 
 end
