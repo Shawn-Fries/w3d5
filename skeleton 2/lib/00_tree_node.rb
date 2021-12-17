@@ -16,8 +16,12 @@ class PolyTreeNode
         @parent.children << self if parent != nil
     end
 
-    def add_child
-        
+    def add_child(child)
+        #@parent.children.each do |child| 
+        #    @parent << children if child != children
+       #end
+        @children << child
+        @parent.children
     end
 
 
