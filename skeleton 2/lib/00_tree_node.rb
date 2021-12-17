@@ -17,19 +17,34 @@ class PolyTreeNode
     end
 
     def add_child(child)
-        #@parent.children.each do |child| 
-        #    @parent << children if child != children
-       #end
-        @children << child
-        @parent.children
+        child.parent = self
     end
 
-
-
-
-
-
+    def remove_child(child)
+        child.parent = nil
+        raise "not a child" if !@children.include?(child)
+    end
+require "byebug"
+    #####Searchable#####
+    def dfs(target_value)
+        return self if self.value == target_value
+        debugger
+        @children.each do |child|
+            return child if child.value == target_value
+            child.dfs(target_value) if child.children.length > 0
+        end
+    end
 end
+
+
+
+
+
+
+
+
+
+
 
 n1 = PolyTreeNode.new("root1")
 n2 = PolyTreeNode.new("root2")
