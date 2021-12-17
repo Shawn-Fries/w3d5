@@ -24,8 +24,7 @@ class PolyTreeNode
         child.parent = nil
         raise "not a child" if !@children.include?(child)
     end
-require "byebug"
-    #####Searchable#####
+
     def dfs(target_value)
         return self if self.value == target_value
         self.children.each do |child|
@@ -35,26 +34,16 @@ require "byebug"
         nil
     end
 
-    def index
-
-        parent_index = 0
-        @children.each_with_index do |child, index|
-            if index.zero?
-                child.parent = self[parent_index]
-                parent_index += 1 if index.even?
-            end
-        end
-    end
-
     def bfs(target_value)
-        index = 0
-        length = @children.length
-        (0...length).each do |i|
-            return index = i if @children[i] == target_value
+        queue = [self]
+        until queue.length == 0
+            current_node = queue.shift
+            return current_node if current_node.value == target_value
+            return nil if current_node.children == nil
+            queue += current_node.children
         end
-        return @children[index]
-        nil
     end
+
 end
 
 n1 = PolyTreeNode.new("root1")
